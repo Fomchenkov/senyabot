@@ -16,14 +16,14 @@ data = [{
 	"text": "Как Вам удобней забрать готовый полис?",
 	"keyboard": "Приехать в офис продаж;Бесплатная доставка"
 }, {
-	"text": "Напишите Ваше имя и номер телефона и наш менеджер сделает Вам лучшее предложение или приезжайте к нам в офис по адресу: г.Смоленск Краснинское шоссе д.14 (Автомойка МИГ 2 этаж), офис 15Б.\n\nТел: 8-930-305-80-01\n\n54-80-01"
+	"text": "В ответном сообщении укажите Ваше имя и номер телефона. Наши менеджеры в кратчайшие сроки свяжутся с Вами и подберут лучшее предложение.\n\nОформить страховой полис также можно по адресу: \nг.Смоленск Краснинское шоссе д.14 (Автомойка МИГ 2 этаж), офис 15Б. \nНапротив АЗС \"Лукойл\"\n\nБесплатная консультация:\n8-930-305-80-01\n8-4812-54-80-01"
 }]
 
 
-BOT_TOKEN = '361985287:AAERpy1Zlw-ID0UAysU6lO_-l63mm0RvKNc' # sys.argv[1]
+BOT_TOKEN = sys.argv[1]
 USERS_STEPS = {}
 USERS_DATA = {}
-MANAGER_ID = 217166737
+MANAGER_ID = 152019781
 
 
 WEBHOOK_HOST = '89.223.25.123'
@@ -115,7 +115,7 @@ def text_handler(message):
 		del USERS_DATA[str(uid)]
 		del USERS_STEPS[str(uid)]
 		bot.send_message(MANAGER_ID, userdata, parse_mode='markdown')
-		text = 'Спасибо за использование нашего бота!'
+		text = 'Спасибо за использование нашего бота!\nДля того, что бы заново оставить заявку, отправьте мне комнаду /start'
 		print(USERS_DATA, '\n', USERS_STEPS)
 		return bot.send_message(uid, text, parse_mode='markdown')
 
@@ -129,15 +129,13 @@ def text_handler(message):
 
 
 def main():
-	bot.polling(none_stop=True)
-	"""
+	# bot.polling(none_stop=True)
 	bot.remove_webhook()
 	time.sleep(1)
 	bot.set_webhook(url=WEBHOOK_URL_BASE+WEBHOOK_URL_PATH,
 					certificate=open(WEBHOOK_SSL_CERT, 'r'))
 	app.run(host=WEBHOOK_LISTEN, port=WEBHOOK_PORT,
 			ssl_context=(WEBHOOK_SSL_CERT, WEBHOOK_SSL_PRIV))
-	"""
 
 
 if __name__ == '__main__':
